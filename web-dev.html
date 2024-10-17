@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1 {
+            cursor: pointer;
+            color: #333;
+        }
+        h2 {
+            cursor: pointer;
+            color: #444;
+            margin-left: 20px;
+        }
+        h3 {
+            cursor: pointer;
+            color: #555;
+            margin-left: 20px;
+        }
+        section {
+            display: none;
+            margin-left: 20px;
+            border-left: 2px solid #ddd;
+            padding-left: 10px;
+        }
+        .toc {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="toc">
+        <h2>TABLE OF CONTENTS</h2>
+        <ul id="toc-list"></ul>
+    </div>
+    
+    <h1 onclick="toggleSection('early-life')">Early Life</h1>
+    <section id="early-life">
+        <p>Details about early life</p>
+    </section>
+    
+    <h1 onclick="toggleSection('career')">Career</h1>
+    <section id="career">
+        <h2 onclick="toggleSection('first-job')">First Job</h2>
+        <section id="first-job">
+            <p>Details about the first job</p>
+        </section>
+        
+        <h2 onclick="toggleSection('second-job')">Second Job</h2>
+        <section id="second-job">
+            <h3 onclick="toggleSection('as-software-engineer')">As Software Engineer</h3>
+            <section id="as-software-engineer">
+                <p>Details about being a software engineer</p>
+            </section>
+            
+            <h3 onclick="toggleSection('as-product-manager')">As Product Manager</h3>
+            <section id="as-product-manager">
+                <p>Details about being a product manager</p>
+            </section>
+        </section>
+    </section>
+    
+    <script>
+        function toggleSection(id) {
+            const section = document.getElementById(id);
+            if (section.style.display === "block") {
+                section.style.display = "none";
+            } else {
+                section.style.display = "block";
+            }
+        }
+    
+        // Automatically generate Table of Contents
+        document.addEventListener("DOMContentLoaded", function() {
+            const tocList = document.getElementById('toc-list');
+            const headers = document.querySelectorAll('h1, h2, h3');
+    
+            headers.forEach(header => {
+                const li = document.createElement('li');
+                li.textContent = header.textContent;
+                li.style.cursor = "pointer";
+                li.onclick = () => toggleSection(header.nextElementSibling.id);
+                tocList.appendChild(li);
+            });
+        });
+    </script>
+
+</body>
+</html>
